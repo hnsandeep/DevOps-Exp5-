@@ -10,16 +10,18 @@ pipeline {
             steps {
                 script {
                     if (fileExists('index.html')) {
-                        echo "index.html found!"
+                        echo "✅ index.html found!"
                     } else {
-                        error "index.html not found!"
+                        error "❌ index.html not found!"
                     }
                 }
             }
         }
         stage('Deploy') {
             steps {
-                echo "Deploy step: index.html is ready."
+                // Archive the file so Jenkins shows it in build artifacts
+                archiveArtifacts artifacts: 'index.html', fingerprint: true
+                echo "index.html archived as build artifact."
             }
         }
     }
