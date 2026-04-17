@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Student Registration Form</title>
+   <style>
+       body {
+           font-family: Arial, sans-serif;
+           display: flex;
+           justify-content: center;
+           align-items: center;
+           height: 100vh;
+           margin: 0;
+       }
+       .form-container {
+           background-color: #f9f9f9;
+           padding: 20px;
+           border-radius: 10px;
+           box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+           width: 300px;
+       }
+       .form-container h2 {
+           text-align: center;
+           color: #333;
+       }
+       label {
+           font-weight: bold;
+           margin-top: 10px;
+           display: block;
+       }
+       input, select {
+           width: 100%;
+           padding: 10px;
+           margin-top: 5px;
+           margin-bottom: 15px;
+           border-radius: 5px;
+           border: 1px solid #ccc;
+       }
+       button {
+           width: 100%;
+           padding: 10px;
+           background-color: #4CAF50;
+           color: white;
+           border: none;
+           border-radius: 5px;
+           cursor: pointer;
+       }
+       button:hover {
+           background-color: #45a049;
+       }
+   </style>
+</head>
+<body>
+   <div class="form-container">
+       <h2>Registration Form</h2>
+       <form action="/submit" method="POST">
+           <label for="firstName">First Name:</label>
+           <input type="text" id="firstName" name="firstName" required>
+           <label for="lastName">Last Name:</label>
+           <input type="text" id="lastName" name="lastName" required>
+           <label for="email">Email:</label>
+           <input type="email" id="email" name="email" required>
+           <label for="password">Password:</label>
+           <input type="password" id="password" name="password"
+                  pattern="^(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{8,}$"
+                  title="Must contain at least one number, one letter, one special character, and at least 8 characters"
+                  required>
+           <label for="gender">Gender:</label>
+           <select id="gender" name="gender" required>
+               <option value="">Select</option>
+               <option value="male">Male</option>
+               <option value="female">Female</option>
+               <option value="other">Other</option>
+           </select>
+           <button type="submit">Register</button>
+       </form>
+   </div>
+</body>
+</html>
