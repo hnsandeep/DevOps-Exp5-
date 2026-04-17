@@ -17,11 +17,16 @@ pipeline {
                 }
             }
         }
+        stage('Build') {
+            steps {
+                echo "No build required for static HTML."
+            }
+        }
         stage('Deploy') {
             steps {
-                // Archive the file so Jenkins shows it in build artifacts
-                archiveArtifacts artifacts: 'index.html', fingerprint: true
-                echo "index.html archived as build artifact."
+                bat '''
+                copy index.html "C:\\Apache24\\htdocs\\index.html"
+                '''
             }
         }
     }
