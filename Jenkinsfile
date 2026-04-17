@@ -1,21 +1,45 @@
 pipeline {
     agent any
     stages {
-        stage('Build') {
+        stage('Checkout') {
             steps {
-                echo 'Building project...'
-                sh 'echo Hello World > output.txt'
+                // Pull code from GitHub
+                checkout scm
             }
         }
-        stage('Test') {
+        stage('Verify') {
             steps {
-                echo 'Running tests...'
+                script {
+                    if (fileExists('index.html')) {
+                        echo "index.html found, proceeding..."
+                    } else {
+                        error "index.html not found!"
+                    }
+                }
+            }
+        }
+        stage('Build') {
+            steps {
+                echo "No build required for static HTML."
             }
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying project...'
+                // Example: copy to Jenkins workspace output folder
+                sh '''
+                mkdir -p ${WORKSPACE}/deploy
+                cp index.html ${WORKSPACE}/deploy/
+                echo "index.html deployed to ${WORKSPACE}/deploy/"
+                '''
             }
+        }
+    }
+    post {
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed. Check logs.'
         }
     }
 }
