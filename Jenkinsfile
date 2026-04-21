@@ -24,9 +24,13 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                bat '''
-                copy index.html "C:\\Apache24\\htdocs\\index.html"
-                '''
+                script {
+                    // Ensure target folder exists
+                    bat 'if not exist C:\\Apache24\\htdocs\\myapp mkdir C:\\Apache24\\htdocs\\myapp'
+                    
+                    // Copy files from Jenkins workspace to Apache htdocs
+                    bat 'xcopy /Y /E "%WORKSPACE%\\*" "C:\\Apache24\\htdocs\\myapp\\"'
+                }
             }
         }
     }
